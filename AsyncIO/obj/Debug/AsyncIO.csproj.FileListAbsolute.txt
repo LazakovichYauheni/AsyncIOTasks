@@ -1,0 +1,6 @@
+D:\aorgish-net-training-tasks-32449dfbbae5\aorgish-net-training-tasks-32449dfbbae5\08-AsyncIO\AsyncIO\bin\Debug\AsyncIO.dll
+D:\aorgish-net-training-tasks-32449dfbbae5\aorgish-net-training-tasks-32449dfbbae5\08-AsyncIO\AsyncIO\bin\Debug\AsyncIO.pdb
+D:\aorgish-net-training-tasks-32449dfbbae5\aorgish-net-training-tasks-32449dfbbae5\08-AsyncIO\AsyncIO\obj\Debug\AsyncIO.csprojAssemblyReference.cache
+D:\aorgish-net-training-tasks-32449dfbbae5\aorgish-net-training-tasks-32449dfbbae5\08-AsyncIO\AsyncIO\obj\Debug\AsyncIO.csproj.CoreCompileInputs.cache
+D:\aorgish-net-training-tasks-32449dfbbae5\aorgish-net-training-tasks-32449dfbbae5\08-AsyncIO\AsyncIO\obj\Debug\AsyncIO.dll
+D:\aorgish-net-training-tasks-32449dfbbae5\aorgish-net-training-tasks-32449dfbbae5\08-AsyncIO\AsyncIO\obj\Debug\AsyncIO.pdb
