@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +19,7 @@ namespace AsyncIO
         /// </summary>
         /// <param name="uris">Sequence of required uri</param>
         /// <returns>The sequence of downloaded url content</returns>
-        public static IEnumerable<string> GetUrlContent(this IEnumerable<Uri> uris) 
+        public static IEnumerable<string> GetUrlContent(this IEnumerable<Uri> uris)
         {
             return uris.Select(x => new WebClient().DownloadString(x));
         }
@@ -38,9 +37,39 @@ namespace AsyncIO
         /// <returns>The sequence of downloaded url content</returns>
         public static IEnumerable<string> GetUrlContentAsync(this IEnumerable<Uri> uris, int maxConcurrentStreams)
         {
-            // TODO : Implement GetUrlContentAsync
-            throw new NotImplementedException();
+            int index = 0;
+            var task = new Task<string>[maxConcurrentStreams];
+
+            foreach (var uri in uris)
+            {
+                if (index >= maxConcurrentStreams)
+                {
+                    var indexCompletedTasks = Task.WaitAny(task);
+                    var completedTasks = task[indexCompletedTasks];
+                    task[indexCompletedTasks] = GetOneUri(uri);
+                    yield return completedTasks.Result;
+                }
+                else
+                {
+                    task[index] = GetOneUri(uri);
+                    index++;
+                }
+            }
+
+            var listTasks = task.ToList();
+            while (!listTasks.Any())
+            {
+                var indexTask = Task.WaitAny(listTasks.ToArray());
+                var resultTask = listTasks[indexTask];
+                listTasks.RemoveAt(indexTask);
+                yield return resultTask.Result;
+            }
         }
+        private static Task<string> GetOneUri(Uri uri)
+        {
+            return new HttpClient().GetStringAsync(uri);
+        }
+
 
 
         /// <summary>
@@ -58,7 +87,4 @@ namespace AsyncIO
         }
 
     }
-
-
-
 }
